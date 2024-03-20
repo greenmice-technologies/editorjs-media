@@ -1,9 +1,9 @@
 import './index.pcss';
 
+import { IconPlay } from '@codexteam/icons';
 import Uploader from './uploader';
-import { make, moveCaretToTheEnd, isEmpty } from './utils/dom';
+import { isEmpty, make, moveCaretToTheEnd } from './utils/dom';
 import { getExtensionFromFileName } from './utils/file';
-import { IconChevronDown, IconFile } from '@codexteam/icons';
 
 const LOADER_TIMEOUT = 500;
 
@@ -86,7 +86,8 @@ export default class MediaTool {
     this.config = {
       endpoint: config.endpoint || '',
       field: config.field || 'file',
-      types: config.types || '*',
+      // types: config.types || '*',
+      types: config.types || 'video/*,audio/*',
       buttonText: config.buttonText || 'Select file to upload',
       errorMessage: config.errorMessage || 'File upload failed',
       uploader: config.uploader || undefined,
@@ -118,8 +119,8 @@ export default class MediaTool {
    */
   static get toolbox() {
     return {
-      icon: IconFile,
-      title: 'Attachment',
+      icon: IconPlay,
+      title: 'Media',
     };
   }
 
@@ -166,35 +167,13 @@ export default class MediaTool {
    */
   get EXTENSIONS() {
     return {
-      doc: '#1483E9',
-      docx: '#1483E9',
-      odt: '#1483E9',
-      pdf: '#DB2F2F',
-      rtf: '#744FDC',
-      tex: '#5a5a5b',
-      txt: '#5a5a5b',
-      pptx: '#E35200',
-      ppt: '#E35200',
       mp3: '#eab456',
+      ogg: '#eab456',
+      wav: '#eab456',
       mp4: '#f676a6',
-      xls: '#11AE3D',
-      html: '#2988f0',
-      htm: '#2988f0',
-      png: '#AA2284',
-      jpg: '#D13359',
-      jpeg: '#D13359',
-      gif: '#f6af76',
-      zip: '#4f566f',
-      rar: '#4f566f',
-      exe: '#e26f6f',
-      svg: '#bf5252',
-      key: '#00B2FF',
-      sketch: '#FFC700',
-      ai: '#FB601D',
-      psd: '#388ae5',
-      dmg: '#e26f6f',
-      json: '#2988f0',
-      csv: '#11AE3D',
+      avi: '#f676a6',
+      mov: '#f676a6',
+      webm: '#f676a6',
     };
   }
 
@@ -263,7 +242,7 @@ export default class MediaTool {
    */
   prepareUploadButton() {
     this.nodes.button = make('div', [this.CSS.apiButton, this.CSS.button]);
-    this.nodes.button.innerHTML = `${IconFile} ${this.config.buttonText}`;
+    this.nodes.button.innerHTML = `${IconPlay} ${this.config.buttonText}`;
 
     if (!this.readOnly) {
       this.nodes.button.addEventListener('click', this.enableFileUpload);
@@ -383,7 +362,7 @@ export default class MediaTool {
 
       wrapper.appendChild(extensionLabel);
     } else {
-      background.innerHTML = IconFile;
+      background.innerHTML = IconPlay;
     }
 
     this.nodes.wrapper.appendChild(wrapper);
@@ -436,16 +415,33 @@ export default class MediaTool {
 
     this.nodes.wrapper.appendChild(fileInfo);
 
-    if (file.url !== undefined) {
-      const downloadIcon = make('a', this.CSS.downloadButton, {
-        innerHTML: IconChevronDown,
-        href: file.url,
-        target: '_blank',
-        rel: 'nofollow noindex noreferrer',
+    // if (file.url !== undefined) {
+    //   const downloadIcon = make('a', this.CSS.downloadButton, {
+    //     innerHTML: IconChevronDown,
+    //     href: file.url,
+    //     target: '_blank',
+    //     rel: 'nofollow noindex noreferrer',
+    //   });
+    //   this.nodes.wrapper.appendChild(downloadIcon);
+    // }
+
+    // if is audio add audio tag else if is video add video tag
+    if (file.extension === 'mp3' || file.extension === 'ogg' || file.extension === 'wav') {
+      const audio = make('audio', 'audio', {
+        controls: true,
+        src: file.url,
       });
 
-      this.nodes.wrapper.appendChild(downloadIcon);
+      this.nodes.wrapper.appendChild(audio);
+    } else if (file.extension === 'mp4' || file.extension === 'avi' || file.extension === 'mov' || file.extension === 'webm') {
+      const video = make('video', 'video', {
+        controls: true,
+        src: file.url,
+      });
+
+      this.nodes.wrapper.appendChild(video);
     }
+
   }
 
   /**
