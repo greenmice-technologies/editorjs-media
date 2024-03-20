@@ -8,15 +8,15 @@ import { IconChevronDown, IconFile } from '@codexteam/icons';
 const LOADER_TIMEOUT = 500;
 
 /**
- * @typedef {object} AttachesToolData
- * @description Attaches Tool's output data format
- * @property {AttachesFileData} file - object containing information about the file
+ * @typedef {object} MediaToolData
+ * @description Media Tool's output data format
+ * @property {MediaFileData} file - object containing information about the file
  * @property {string} title - file's title
  */
 
 /**
- * @typedef {object} AttachesFileData
- * @description Attaches Tool's file format
+ * @typedef {object} MediaFileData
+ * @description Media Tool's file format
  * @property {string} [url] - file's upload url
  * @property {string} [size] - file's size
  * @property {string} [extension] - file's extension
@@ -25,7 +25,7 @@ const LOADER_TIMEOUT = 500;
 
 /**
  * @typedef {object} FileData
- * @description Attaches Tool's response from backend. Could contain any data.
+ * @description Media Tool's response from backend. Could contain any data.
  * @property {string} [url] - file's url
  * @property {string} [name] - file's name with extension
  * @property {string} [extension] - file's extension
@@ -39,7 +39,7 @@ const LOADER_TIMEOUT = 500;
  */
 
 /**
- * @typedef {object} AttachesToolConfig
+ * @typedef {object} MediaToolConfig
  * @description Config supported by Tool
  * @property {string} endpoint - file upload url
  * @property {string} field - field name for uploaded file
@@ -57,14 +57,14 @@ const LOADER_TIMEOUT = 500;
  */
 
 /**
- * @class AttachesTool
- * @classdesc AttachesTool for Editor.js 2.0
+ * @class MediaTool
+ * @classdesc MediaTool for Editor.js 2.0
  */
-export default class AttachesTool {
+export default class MediaTool {
   /**
    * @param {object} options - tool constructor options
-   * @param {AttachesToolData} [options.data] - previously saved data
-   * @param {AttachesToolConfig} options.config - user defined config
+   * @param {MediaToolData} [options.data] - previously saved data
+   * @param {MediaToolConfig} options.config - user defined config
    * @param {EditorAPI} options.api - Editor.js API
    * @param {boolean} options.readOnly - flag indicates whether the Read-Only mode enabled or not
    */
@@ -145,17 +145,17 @@ export default class AttachesTool {
       /**
        * Tool's classes
        */
-      wrapper: 'cdx-attaches',
-      wrapperWithFile: 'cdx-attaches--with-file',
-      wrapperLoading: 'cdx-attaches--loading',
-      button: 'cdx-attaches__button',
-      title: 'cdx-attaches__title',
-      size: 'cdx-attaches__size',
-      downloadButton: 'cdx-attaches__download-button',
-      fileInfo: 'cdx-attaches__file-info',
-      fileIcon: 'cdx-attaches__file-icon',
-      fileIconBackground: 'cdx-attaches__file-icon-background',
-      fileIconLabel: 'cdx-attaches__file-icon-label',
+      wrapper: 'cdx-media',
+      wrapperWithFile: 'cdx-media--with-file',
+      wrapperLoading: 'cdx-media--loading',
+      button: 'cdx-media__button',
+      title: 'cdx-media__title',
+      size: 'cdx-media__size',
+      downloadButton: 'cdx-media__download-button',
+      fileInfo: 'cdx-media__file-info',
+      fileIcon: 'cdx-media__file-icon',
+      fileIconBackground: 'cdx-media__file-icon-background',
+      fileIconLabel: 'cdx-media__file-icon-label',
     };
   }
 
@@ -202,7 +202,7 @@ export default class AttachesTool {
    * Validate block data:
    * - check for emptiness
    *
-   * @param {AttachesToolData} savedData — data received after saving
+   * @param {MediaToolData} savedData — data received after saving
    * @returns {boolean} false if saved data is not correct, otherwise true
    * @public
    */
@@ -218,7 +218,7 @@ export default class AttachesTool {
    * Return Block data
    *
    * @param {HTMLElement} toolsContent - block main element returned by the render method
-   * @returns {AttachesToolData}
+   * @returns {MediaToolData}
    */
   save(toolsContent) {
     /**
@@ -273,7 +273,7 @@ export default class AttachesTool {
   }
 
   /**
-   * Fires after clicks on the Toolbox AttachesTool Icon
+   * Fires after clicks on the Toolbox MediaTool Icon
    * Initiates click on the Select File button
    *
    * @public
@@ -327,7 +327,7 @@ export default class AttachesTool {
         this.uploadingFailed(this.config.errorMessage);
       }
     } catch (error) {
-      console.error('Attaches tool error:', error);
+      console.error('Media tool error:', error);
       this.uploadingFailed(this.config.errorMessage);
     }
 
@@ -463,9 +463,9 @@ export default class AttachesTool {
   }
 
   /**
-   * Return Attaches Tool's data
+   * Return Media Tool's data
    *
-   * @returns {AttachesToolData}
+   * @returns {MediaToolData}
    */
   get data() {
     return this._data;
@@ -474,7 +474,7 @@ export default class AttachesTool {
   /**
    * Stores all Tool's data
    *
-   * @param {AttachesToolData} data - data to set
+   * @param {MediaToolData} data - data to set
    */
   set data({ file, title }) {
     this._data = {

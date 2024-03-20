@@ -1,7 +1,7 @@
 import ajax from '@codexteam/ajax';
 
 /**
- * @typedef AttachesToolConfig
+ * @typedef MediaToolConfig
  */
 
 /**
@@ -10,7 +10,7 @@ import ajax from '@codexteam/ajax';
 export default class Uploader {
   /**
    * @param {object} options - constructor params
-   * @param {AttachesToolConfig} options.config - user defined configuration
+   * @param {MediaToolConfig} options.config - user defined configuration
    * @param {Function} options.onUpload - callback for successful file upload
    * @param {Function} options.onError - callback for uploading errors
    */

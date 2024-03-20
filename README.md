@@ -1,4 +1,4 @@
-# Attaches Tool
+# Media Tool
 
 Tool for the [Editor.js](https://editorjs.io).
 
@@ -13,31 +13,23 @@ You can get the package using any of these ways.
 ### Via NPM / Yarn
 
 ```shell
-npm install @editorjs/attaches
+npm install @greenmice/editorjs-media
 ```
-
-### Load from CDN
-
-You can load specific version of package from [jsDelivr CDN](https://www.jsdelivr.com/package/npm/@editorjs/attaches).
-
-`https://cdn.jsdelivr.net/npm/@editorjs/attaches@latest`
-
-Then require this script on page with Editor.js through the `<script src=""></script>` tag.
 
 ## Usage
 
 Add a new Tool to the `tools` property of the Editor.js initial config.
 
 ```javascript
-import AttachesTool from '@editorjs/attaches';
+import MediaTool from '@greenmice/editorjs-media';
 
 var editor = EditorJS({
   ...
 
   tools: {
     ...
-    attaches: {
-      class: AttachesTool,
+    media: {
+      class: MediaTool,
       config: {
         endpoint: 'http://localhost:8008/uploadFile'
       }
@@ -50,7 +42,7 @@ var editor = EditorJS({
 
 ## Config Params
 
-Attaches Tool supports these configuration parameters:
+Media Tool supports these configuration parameters:
 
 | Field | Type     | Description        |
 | ----- | -------- | ------------------ |
@@ -85,13 +77,13 @@ Object `file` consists of the following fields. All of them are optional, `size`
 
 ```json
 {
-    "type" : "attaches",
+    "type" : "meida",
     "data" : {
         "file": {
-            "url" : "https://www.tesla.com/tesla_theme/assets/img/_vehicle_redesign/roadster_and_semi/roadster/hero.jpg",
-            "size": 91,
-            "name": "hero.jpg",
-            "extension": "jpg"
+            "url" : "https://www.tesla.com/tesla_theme/assets/img/_vehicle_redesign/roadster_and_semi/roadster/hero.mp3",
+            "size": "12345",
+            "name": "hero.mp3",
+            "extension": "mp3"
         },
         "title": "Hero"
     }
@@ -137,15 +129,15 @@ The method return a Promise that resolves with response in a format that describ
 Example:
 
 ```js
-import AttachesTool from '@editorjs/attaches';
+import MediaTool from '@greenmice/editorjs-media';
 
 var editor = EditorJS({
   ...
 
   tools: {
     ...
-    attaches: {
-      class: AttachesTool,
+    media: {
+      class: MediaTool,
       config: {
         /**
          * Custom uploader

@@ -8,7 +8,7 @@ module.exports = {
     path: path.join(__dirname, '/dist'),
     publicPath: '/',
     filename: 'bundle.js',
-    library: 'AttachesTool',
+    library: 'MeidaTool',
     libraryTarget: 'umd',
     libraryExport: 'default',
   },

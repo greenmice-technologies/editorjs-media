@@ -5,7 +5,7 @@
  * How to use [requires Node.js 10.0.0+ and npm install]:
  *
  * 1. $ node dev/server.js
- * 2. set 'endpoint' at the Attaches Tools 'config' in example-dev.html
+ * 2. set 'endpoint' at the Media Tools 'config' in example-dev.html
  *   endpoint : 'http://localhost:8008/uploadFile'
  *
  */
