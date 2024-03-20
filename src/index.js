@@ -380,68 +380,29 @@ export default class MediaTool {
    */
   showFileData() {
     this.nodes.wrapper.classList.add(this.CSS.wrapperWithFile);
+    const { file } = this.data;
+    const extensionProvided = file.extension;
+    const extension = extensionProvided || getExtensionFromFileName(file.name);
 
-    const { file, title } = this.data;
-
-    this.appendFileIcon(file);
-
-    const fileInfo = make('div', this.CSS.fileInfo);
-
-    this.nodes.title = make('div', this.CSS.title, {
-      contentEditable: this.readOnly === false,
-    });
-
-    this.nodes.title.dataset.placeholder = this.api.i18n.t('File title');
-    this.nodes.title.textContent = title || '';
-    fileInfo.appendChild(this.nodes.title);
-
-    if (file.size) {
-      let sizePrefix;
-      let formattedSize;
-      const fileSize = make('div', this.CSS.size);
-
-      if (Math.log10(+file.size) >= 6) {
-        sizePrefix = 'MiB';
-        formattedSize = file.size / Math.pow(2, 20);
-      } else {
-        sizePrefix = 'KiB';
-        formattedSize = file.size / Math.pow(2, 10);
-      }
-
-      fileSize.textContent = formattedSize.toFixed(1);
-      fileSize.setAttribute('data-size', sizePrefix);
-      fileInfo.appendChild(fileSize);
-    }
-
-    this.nodes.wrapper.appendChild(fileInfo);
-
-    // if (file.url !== undefined) {
-    //   const downloadIcon = make('a', this.CSS.downloadButton, {
-    //     innerHTML: IconChevronDown,
-    //     href: file.url,
-    //     target: '_blank',
-    //     rel: 'nofollow noindex noreferrer',
-    //   });
-    //   this.nodes.wrapper.appendChild(downloadIcon);
-    // }
-
-    // if is audio add audio tag else if is video add video tag
-    if (file.extension === 'mp3' || file.extension === 'ogg' || file.extension === 'wav') {
+    if (['mp3', 'ogg', 'wav'].includes(extension)) {
       const audio = make('audio', 'audio', {
         controls: true,
         src: file.url,
       });
 
+      audio.style.width = '100%';
+
       this.nodes.wrapper.appendChild(audio);
-    } else if (file.extension === 'mp4' || file.extension === 'avi' || file.extension === 'mov' || file.extension === 'webm') {
+    } else if (['mp4', 'avi', 'mov', 'webm'].includes(extension)) {
       const video = make('video', 'video', {
         controls: true,
         src: file.url,
       });
 
+      video.style.width = '100%';
+
       this.nodes.wrapper.appendChild(video);
     }
-
   }
 
   /**
